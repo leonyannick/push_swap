@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack_operations.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:12:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/01/20 15:17:51 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/01/22 21:19:29 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,17 @@
 		-no return value -> maybe has to be added later in case whole stack
 		needs to be free after allocation fails
 */
-void	push(t_stack **head, int value)
+void	push(t_stack *stack, int value)
 {
-	t_stack		*node;
+	t_frame		*frame;
 	
-	if (!head)
+	frame = malloc(sizeof(t_frame));
+	if (!frame)
 		return ;
-	node = malloc(sizeof(t_stack));
-	if (!node)
-		return ;
-	node->value = value;
-	if (*head)
-		node->next = *head;
-	else
-		node->next = NULL;
-	*head = node;
+	frame->value = value;
+	frame->next = stack->head;
+	stack->head = frame;
+	(stack->size)++;
 }
 
 /*
@@ -52,44 +48,41 @@ void	push(t_stack **head, int value)
 		-NULL in case the stack is empty and there is no element
 		to be popped
 */
-t_stack	*pop(t_stack **head)
+t_frame	*pop(t_stack *stack)
 {
-	t_stack	*popped_node;
+	t_frame	*popped_frame;
 
-	if (!head || !*head)
+	if (!stack->head)
 		return (NULL);
-	if((*head)->next)
-	{
-		popped_node = *head;
-		*head = (*head)->next;
-		popped_node->next = NULL;
-		return (popped_node);
-	}
-	return (NULL);
+	popped_frame = stack->head;
+	stack->head = stack->head->next;
+	popped_frame->next = NULL;
+	(stack->size)--;
+	return (popped_frame);
 }
 
-void	print_stack(t_stack *head)
+void	print_stack(t_stack *stack)
 {
-	while (head)
+	while (stack->head)
 	{
-		printf("%i\n", head->value);
-		head = head->next;
+		printf("%i\n", stack->head->value);
+		printf("stack size: %i\n", stack->size);
+		stack->head = stack->head->next;
 	}
 }
 
-/* int	main(void)
+int	main(void)
 {
-	t_stack	*a = NULL;
-	pop(&a);
-	// t_stack *b;
+	t_stack	*a;
+	a = malloc(sizeof(t_stack));
+	a->size = 0;
+	t_frame	*temp;
 
-	// push(&a, 5);
-	// push(&a, 1);
-	// push(&a, 3);
-	// b = pop(&a);
-	// print_stack(a);
-	// printf("\n");
-	// print_stack(b);
-	
-	
-} */
+
+	push(a, 5);
+	push(a, 1);
+	push(a, 3);
+	temp = pop(a);
+	printf("temp.value: %i\n", temp->value);
+	print_stack(a);
+}
