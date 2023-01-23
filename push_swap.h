@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 09:56:45 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/01/22 21:10:36 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/01/23 12:12:54 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,17 @@ typedef struct s_frame
 typedef struct s_stack
 {
 	t_frame		*head;
+	t_frame		*tail;
 	int			size;
 }t_stack;
 
+# define REVERSE 1
+# define NORMAL 0
 
 
-//t_stack		*ft_push(t_stack **head, int value);
-// void		print_stack(t_stack *head);
-// t_stack		*pop(t_stack **head);
-// void		push(t_stack **head, int value);
+void	push(t_stack *stack, int value);
+int		pop(t_stack *stack);
+void	print_stack(t_stack *stack);
+void	clear_stack(t_stack *stack);
 
 #endif
