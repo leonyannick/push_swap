@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   radix_sort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 11:56:09 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/01/27 15:59:00 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/01/27 23:20:51 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
 
-void normalize(t_stack *stack, int stack_size)
+/* void normalize(t_stack *stack, int stack_size)
 {
 	
-}
+} */
 
 
 	

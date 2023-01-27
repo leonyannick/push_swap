@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+         #
+#    By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/20 14:40:37 by lbaumann          #+#    #+#              #
-#    Updated: 2023/01/27 14:51:45 by lbaumann         ###   ########.fr        #
+#    Updated: 2023/01/27 23:41:37 by lbaumann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ T_OBJS = ${T_SRCS:.c=.o}
 all: $(NAME)
 
 $(NAME): $(LIBFT_A)
-	gcc *.c -L. -lft -o $(NAME)
+	gcc -g *.c -L. -lft -o $(NAME)
 
 $(LIBFT_A):
 	$(MAKE) -C $(LIBFT)

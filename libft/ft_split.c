@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann < lbaumann@student.42berlin.de    +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 09:41:52 by lbaumann          #+#    #+#             */
-/*   Updated: 2022/12/13 10:26:24 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/01/28 00:01:55 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ static int	ft_cpystrs(char *s, char c, char **arr, char *last_addr)
 		character ’c’ as a delimiter. The array must end
 		with a NULL pointer.
 */
-char	**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c, int *nsubstrs)
 {
 	int		substrs;
 	char	**arr;
@@ -118,6 +118,7 @@ char	**ft_split(char const *s, char c)
 	if (s == 0)
 		return (0);
 	substrs = ft_cnt_substr((char *)s, c);
+	*nsubstrs = substrs - 1;
 	arr = malloc((substrs + 1) * sizeof(char *));
 	if (arr == 0)
 		return (0);
