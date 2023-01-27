@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann < lbaumann@student.42berlin.de    +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 11:56:20 by lbaumann          #+#    #+#             */
-/*   Updated: 2022/12/13 10:44:50 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/01/24 11:33:40 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 {
 	void	*addr;
 
-	if (nmemb * size > MAX_INT)
+	if (nmemb * size > INT_MAX)
 		return (0);
 	addr = malloc(nmemb * size);
 	if (addr == 0)

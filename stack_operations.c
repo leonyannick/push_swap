@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:35:57 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/01/23 15:15:30 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/01/25 13:15:27 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,115 +46,82 @@ void	push_y_to_x(t_stack *x, t_stack *y)
 }
 
 /*
--updates tail to point to new head after rotate operations
-*/
-void	update_tail(t_stack stack)
-{
-	
-}
-
-/*
-
+-normal (reverse == 0): first element becomes last
+-reverse (reverse == 1): last elemebt becomes first
 */
 void	rotate(t_stack *stack, int reverse)
 {
-	t_frame *head_temp;
-	
 	if (reverse)
-	{
-		head_temp = stack->head;
-		stack->head = stack->tail;
-		stack->tail = head_temp;
-		stack->tail->next = stack->head;
-	}
+		stack->head = stack->head->prev;
 	else
-	{
-		head_temp = stack->head;
 		stack->head = stack->head->next;
-		stack->tail = head_temp;
-		stack->tail->next = stack->head;
-	}
 }
 
-#include <stdio.h>
-
-int	main(void)
+void sa(t_stack *a)
 {
-	//tests for swap:
-	t_stack	*a;
-	a = malloc(sizeof(t_stack));
-	a->size = 0;
-
-	/* //empty stack swap
-	a->head = NULL;
+	ft_printf("sa\n");
 	swap(a);
-	print_stack(a);
+}
 
-	//one element swap
-	push(a, 5);push_y_to_x(a, b);
-	print_stack(a);
+void sb(t_stack *b)
+{
+	ft_printf("sb\n");
+	swap(b);
+}
+
+void ss(t_stack *a, t_stack *b)
+{
+	ft_printf("ss\n");
 	swap(a);
-	printf("swapped:\n");
-	print_stack(a);
-	printf("\n");
-	
-	//normal swap
-	push(a, 1);
-	push(a, 3);
-	print_stack(a);
-	swap(a);
-	printf("swapped:\n");
-	print_stack(a);
-	printf("\n"); */
+	swap(b);
+}
 
-	//tests for push_y_to_x
-	/* t_stack	*b;
-	b = malloc(sizeof(t_stack));
-	b->size = 0;
-
-	//normal swapping
-	push(a, 5);
-	push(a, 1);
-	push(a, 3);
-	printf("a before pa:\t");
-	print_stack(a);
-	push(b, 7);
-	push(b, 2);
-	push(b, 4);
-	printf("b before pa:\t");
-	print_stack(b);
+void pa(t_stack *a, t_stack *b)
+{
+	ft_printf("pa\n");
 	push_y_to_x(a, b);
-	printf("a after pa:\t");
-	print_stack(a);
-	printf("b after pa:\t");
-	print_stack(b);
-	printf("\n");
+}
 
-	//empty stack y
-	clear_stack(b);
-	printf("a before pa:\t");
-	print_stack(a);
-	printf("b before pa:\t");
-	print_stack(b);
-	push_y_to_x(a, b);
-	printf("a after pa:\t");
-	print_stack(a);
-	printf("b after pa:\t");
-	print_stack(b); */
+void pb(t_stack *a, t_stack *b)
+{
+	ft_printf("pb\n");
+	push_y_to_x(b, a);
+}
 
-	//tests for rotate
-	push(a, 5);
-	push(a, 1);
-	push(a, 3);
-	push(a, 7);
-	push(a, 9);
-	printf("a before rotate:\t");
-	print_stack(a);
-	rotate(a, REVERSE);
-	print_stack(a);
+void ra(t_stack *a)
+{
+	ft_printf("ra\n");
 	rotate(a, NORMAL);
-	printf("a after rotate:\t");
-	print_stack(a);
-	
+}
 
+void rb(t_stack *b)
+{
+	ft_printf("rb\n");
+	rotate(b, NORMAL);
+}
+
+void rrb(t_stack *b)
+{
+	ft_printf("rrb\n");
+	rotate(b, REVERSE);
+}
+
+void rra(t_stack *a)
+{
+	ft_printf("rra\n");
+	rotate(a, REVERSE);
+}
+
+void rrr(t_stack *a, t_stack *b)
+{
+	ft_printf("rrr\n");
+	rotate(a, REVERSE);
+	rotate(b, REVERSE);
+}
+
+void rr(t_stack *a, t_stack *b)
+{
+	ft_printf("rr\n");
+	rotate(a, NORMAL);
+	rotate(b, NORMAL);
 }

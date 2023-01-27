@@ -6,7 +6,7 @@
 #    By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/20 14:40:37 by lbaumann          #+#    #+#              #
-#    Updated: 2023/01/20 14:51:49 by lbaumann         ###   ########.fr        #
+#    Updated: 2023/01/27 14:51:45 by lbaumann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,20 +18,20 @@ LIBFT_A = libft/libft.a
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 
-SRCS = stack_operations.c
-T_SRCS = test.c
+SRCS = stack_operations.c push_swap.c push_pop.c insertion_sort.c radix_sort.c
+T_SRCS = tests/test_push_pop.c
 
 OBJS = ${SRCS:.c=.o}
 T_OBJS = ${T_SRCS:.c=.o}
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT_A)
-	cp $(LIBFT_A) $(NAME)
-	ar -cr $(NAME) $(OBJS)
-	
+$(NAME): $(LIBFT_A)
+	gcc *.c -L. -lft -o $(NAME)
+
 $(LIBFT_A):
 	$(MAKE) -C $(LIBFT)
+	mv $(LIBFT_A) .
 
 clean:
 	rm -f $(OBJS)
@@ -43,8 +43,8 @@ fclean: clean
 
 re: fclean all
 
-test: $(T_OBJS) $(OBJS)
-	cc $(T_OBJS) $(OBJS) -o test
+test: $(T_OBJS) $(OBJS) $(LIBFT_A)
+	cc $(T_OBJS) $(OBJS) -L. -lft -o test
 	./test
 
 .PHONY: all clean fclean re test
