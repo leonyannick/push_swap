@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 09:45:47 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/01/28 00:08:30 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/01/28 13:42:12 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,27 +30,9 @@ int	is_duplicate(t_stack *stack, int num)
 	return (0);
 }
 
-/* int	process_str(char* str, t_stack *a)
-{
-	int i;
-	int is_string;
-
-	i = 0;
-	is_string = 0;
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]))
-			is_string = 1;
-		i++;
-	}
-	if (!is_string)
-		return (0);
-	
-} */
-
 int	check_input(int arg_idx, char **nums, t_stack *a)
 {
-	int		chr_idx;
+	int		error_flag;
 	long	num;
 
 	if (arg_idx < 0)
@@ -59,17 +41,10 @@ int	check_input(int arg_idx, char **nums, t_stack *a)
 		nums = ft_split(nums[0], ' ', &arg_idx);
 	if (!nums[0])
 		return (0);
-	chr_idx = 0;
 	while (arg_idx >= 0)
 	{
-		while (nums[arg_idx][chr_idx])
-		{
-			if (!ft_isdigit(nums[arg_idx][chr_idx]))
-				return (0);
-			chr_idx++;
-		}
-		num = ft_atol(nums[arg_idx]);
-		if (num > INT_MAX || is_duplicate(a, num))
+		num = ft_atol(nums[arg_idx], &error_flag);
+		if (num > INT_MAX || is_duplicate(a, num) || error_flag)
 			return (0);
 		push(a, num);
 		arg_idx--;
@@ -108,34 +83,31 @@ void	print_stack(t_stack *stack)
 
 int	is_sorted(t_stack *a)
 {
-	int			i;
-	int			j;
+	int			nvals;
+	int			ncompares;
 	t_frame		*head;
+	t_frame		*val;
 
 	head = a->head;
-	i = 0;
-	while (i < a->size)
+	nvals = (a->size - 1);
+	while (nvals)
 	{
-		j = i + 1;
-		while (j < (a->size - 1))
+		ncompares = nvals;
+		val = head;
+		while (ncompares)
 		{
-			if ((a->head->value) > (a->head->next->value))
-			{
-				a->head = head;
+			if ((val->value) > (val->next->value))
 				return (0);
-			}
-			a->head = a->head->next;
-			j++;
+			val = val->next;
+			ncompares--;
 		}
-		i++;
+		val = head->next;
+		head = head->next;
+		nvals--;
 	}
-	a->head = head;
 	return (1);
 }
 
-/*
-gcc push_swap.c push_pop.c stack_operations.c libft/ft_split.c libft/ft_isdigit.c libft/ft_atol.c libft/ft_strlcpy.c libft/ft_strlen.c libft/ft_printf.c libft/parsers/parsers.c libft/printers/printers.c libft/ft_putstr_fd.c libft/ft_putnbr_fd.c libft/ft_putchar_fd.c
-*/
 int	initialize_stacks(t_stack **a, t_stack **b)
 {
 	*b = malloc(sizeof(t_stack));
@@ -163,11 +135,12 @@ int	main(int argc, char **argv)
 		return (write(2, "Error\n", 6), 0);
 	}
 	print_stack(a);
+	//is_sorted(a);
 	//normalize(a, a->head);
 	//print_stack(a);
 	//insertion_sort(a);
-	// if (is_sorted(a))
-	// 	printf("sorted\n");
+	if (is_sorted(a))
+		printf("sorted\n");
 	// print_stack(a);
 	//free_mem(a, b);
 }
