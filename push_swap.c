@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 09:45:47 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/01/28 13:42:12 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/01/28 16:18:29 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,33 @@ int	is_sorted(t_stack *a)
 	return (1);
 }
 
+int	is_rev_sorted(t_stack *a)
+{
+	int			nvals;
+	int			ncompares;
+	t_frame		*head;
+	t_frame		*val;
+
+	head = a->head->prev;
+	nvals = (a->size - 1);
+	while (nvals)
+	{
+		ncompares = nvals;
+		val = head;
+		while (ncompares)
+		{
+			if ((val->value) > (val->prev->value))
+				return (0);
+			val = val->prev;
+			ncompares--;
+		}
+		val = head->prev;
+		head = head->prev;
+		nvals--;
+	}
+	return (1);
+}
+
 int	initialize_stacks(t_stack **a, t_stack **b)
 {
 	*b = malloc(sizeof(t_stack));
@@ -120,6 +147,51 @@ int	initialize_stacks(t_stack **a, t_stack **b)
 	(*a)->size = 0;
 	(*b)->size = 0;
 	return (1);
+}
+
+void	n_rotate(t_stack *stack, int n)
+{
+	
+	while (n)
+	{
+		ra(stack);
+		n--;
+	}
+}
+
+void	sort_3(t_stack *a)
+{
+	int	head_val;
+	int	next_val;
+	int	prev_val;
+
+	head_val = a->head->value;
+	next_val = a->head->next->value;
+	prev_val = a->head->prev->value;
+	if (head_val < next_val && head_val < prev_val && prev_val < next_val)
+	{
+		sa(a);
+		ra(a);
+	}
+	else if (head_val > next_val && head_val > prev_val && prev_val > next_val)
+		ra(a);
+	else if (head_val > next_val && head_val > prev_val && prev_val < next_val)
+	{
+		sa(a);
+		rra(a);
+	}
+	else if (head_val > next_val && head_val < prev_val)
+		sa(a);
+	else
+		rra(a);
+}
+
+void	sort_5(t_stack *a, t_stack *b)
+{
+	pb(a, b);
+	pb(a, b);
+	sort_3(a);
+	
 }
 
 int	main(int argc, char **argv)
@@ -135,12 +207,14 @@ int	main(int argc, char **argv)
 		return (write(2, "Error\n", 6), 0);
 	}
 	print_stack(a);
-	//is_sorted(a);
-	//normalize(a, a->head);
-	//print_stack(a);
-	//insertion_sort(a);
 	if (is_sorted(a))
+	{
 		printf("sorted\n");
-	// print_stack(a);
-	//free_mem(a, b);
+		return (0);
+	}
+	// if (is_rev_sorted(a))
+	// 	n_rotate(a, (a->size - 1));
+	if (a->size == 3)
+		sort_3(a);
+	print_stack(a);
 }
