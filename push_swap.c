@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 09:45:47 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/01/28 16:18:29 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/01/29 18:23:39 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	check_input(int arg_idx, char **nums, t_stack *a)
 		if (num > INT_MAX || is_duplicate(a, num) || error_flag)
 			return (0);
 		push(a, num);
+		a->head->index = -1;
 		arg_idx--;
 	}
 	return (1);
@@ -74,7 +75,7 @@ void	print_stack(t_stack *stack)
 		/* printf("prev: %i, ", temp->prev->value);
 		printf("val: \033[1;31m%i\033[0m ", temp->value);
 		printf("next: %i -> , ", temp->next->value); */
-		printf("\033[1;31m%i\033[0m-> ", temp->value);
+		printf("\033[1;31m%i\033[0m index:%i -> ", temp->value, temp->index);
 		temp = temp->next;
 		temp_stack_size--;
 	}
@@ -206,15 +207,16 @@ int	main(int argc, char **argv)
 		free_mem(a, b);
 		return (write(2, "Error\n", 6), 0);
 	}
-	print_stack(a);
+	/* print_stack(a);
 	if (is_sorted(a))
 	{
 		printf("sorted\n");
 		return (0);
 	}
-	// if (is_rev_sorted(a))
-	// 	n_rotate(a, (a->size - 1));
 	if (a->size == 3)
-		sort_3(a);
+		sort_3(a); */
 	print_stack(a);
+	normalize(a);
+	print_stack(a);
+
 }

@@ -6,17 +6,47 @@
 /*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 11:56:09 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/01/27 23:20:51 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/01/29 18:34:09 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
 
-/* void normalize(t_stack *stack, int stack_size)
+void normalize(t_stack *a)
 {
+	int			nvals;
+	int			ncompares;
+	int			is_biggest;
+	t_frame 	*temp;
+	t_frame		*head;
+	t_frame		*val;
+
+	head = a->head;
+	nvals = a->size;
 	
-} */
+	while (nvals)
+	{
+		is_biggest = 1;
+		ncompares = (a->size - 1);
+		val = head;
+		temp = val;
+		while (ncompares)
+		{
+			if ((temp->value < (val->next->value) && val->next->index != -1))
+				is_biggest = 0;
+			val = val->next;
+			ncompares--;
+		}
+		if (is_biggest)
+		{
+			temp->index = nvals;
+			nvals--;
+		}
+		val = head->next;
+		head = head->next;
+	}
+}
 
 
 	

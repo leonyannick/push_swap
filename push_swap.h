@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 09:56:45 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/01/27 15:53:44 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/01/29 18:20:30 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 typedef struct s_frame
 {
 	int				value;
-	long			shifted_val;
+	int				index;
 	struct s_frame	*next;
 	struct s_frame	*prev;
 }t_frame;
@@ -65,6 +65,6 @@ void	insertion_sort(t_stack *a);
 int		is_sorted(t_stack *a);
 
 //radix sort
-void	normalize(t_stack *stack, t_frame *head);
+void normalize(t_stack *a);
 
 #endif
