@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 09:45:47 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/01/30 13:37:52 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/01/30 17:22:46 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,9 @@ void	sort_3(t_stack *a)
 	head_val = a->head->value;
 	next_val = a->head->next->value;
 	prev_val = a->head->prev->value;
-	if (head_val < next_val && head_val < prev_val && prev_val < next_val)
+	if (is_sorted(a))
+		return ;
+	else if (head_val < next_val && head_val < prev_val && prev_val < next_val)
 	{
 		sa(a);
 		ra(a);
@@ -192,12 +194,29 @@ void	sort_3(t_stack *a)
 		rra(a);
 }
 
-void	sort_5(t_stack *a, t_stack *b)
+void	sort_small(t_stack *a, t_stack *b)
 {
-	pb(a, b);
-	pb(a, b);
-	sort_3(a);
+	int		curr_idx;
+	int		a_size;
 	
+	curr_idx = 0;
+	a_size = a->size;
+	while (curr_idx < (a_size - 3))
+	{
+		if (a->head->index == curr_idx)
+		{
+			pb(a, b);
+			curr_idx++;
+		}
+		else
+			ra(a);
+	}
+	sort_3(a);
+	while (curr_idx)
+	{
+		pa(a, b);
+		curr_idx--;
+	}
 }
 
 int	main(int argc, char **argv)
@@ -221,9 +240,10 @@ int	main(int argc, char **argv)
 	if (a->size == 3)
 		sort_3(a); */
 	//print_stack(a);
-	normalize(a, a->head);
+	//normalize(a, a->head);
 	//print_stack(a);
-	radix_sort(a, b);
-	print_stack(a);
-
+	//radix_sort(a, b);
+	//insertion_sort(a);
+	normalize(a, a->head);
+	sort_small(a, b);
 }
