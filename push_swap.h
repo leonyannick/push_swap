@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 09:56:45 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/01/29 18:20:30 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/01/30 09:49:34 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,6 @@ void	insertion_sort(t_stack *a);
 int		is_sorted(t_stack *a);
 
 //radix sort
-void normalize(t_stack *a);
+void normalize(t_stack *a, t_frame *head);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 09:45:47 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/01/29 18:23:39 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/01/30 09:49:55 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,7 @@ int	main(int argc, char **argv)
 	if (a->size == 3)
 		sort_3(a); */
 	print_stack(a);
-	normalize(a);
+	normalize(a, a->head);
 	print_stack(a);
 
 }

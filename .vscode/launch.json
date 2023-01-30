@@ -8,10 +8,10 @@
 	"name":"Launch",
 	"type":"cppdbg",
 	"program":"${workspaceFolder}/push_swap",
-	"args":["4 -1 5"],
+	"args":["5 -1 4"],
 	"cwd":"${workspaceFolder}",
 	"request":"launch",
-	"MIMode":"lldb"
+	"MIMode":"gdb"
 	}
 	]
 }
