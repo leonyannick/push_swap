@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 09:45:47 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/01/30 09:49:55 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/01/30 13:37:52 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	check_input(int arg_idx, char **nums, t_stack *a)
 {
 	int		error_flag;
 	long	num;
+	t_frame *frame;
 
 	if (arg_idx < 0)
 		return (0);
@@ -43,11 +44,15 @@ int	check_input(int arg_idx, char **nums, t_stack *a)
 		return (0);
 	while (arg_idx >= 0)
 	{
+		frame = malloc(sizeof(t_frame));
+		if (!frame)
+			return (0);
 		num = ft_atol(nums[arg_idx], &error_flag);
 		if (num > INT_MAX || is_duplicate(a, num) || error_flag)
 			return (0);
-		push(a, num);
-		a->head->index = -1;
+		frame->index = -1;
+		frame->value = num;
+		push(a, frame);
 		arg_idx--;
 	}
 	return (1);
@@ -75,7 +80,7 @@ void	print_stack(t_stack *stack)
 		/* printf("prev: %i, ", temp->prev->value);
 		printf("val: \033[1;31m%i\033[0m ", temp->value);
 		printf("next: %i -> , ", temp->next->value); */
-		printf("\033[1;31m%i\033[0m index:%i -> ", temp->value, temp->index);
+		printf("\033[1;31m%i\033[0m (%i) -> ", temp->value, temp->index);
 		temp = temp->next;
 		temp_stack_size--;
 	}
@@ -215,8 +220,10 @@ int	main(int argc, char **argv)
 	}
 	if (a->size == 3)
 		sort_3(a); */
-	print_stack(a);
+	//print_stack(a);
 	normalize(a, a->head);
+	//print_stack(a);
+	radix_sort(a, b);
 	print_stack(a);
 
 }

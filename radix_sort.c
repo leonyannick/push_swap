@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 11:56:09 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/01/30 09:48:39 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/01/30 13:34:15 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,38 +46,35 @@ void normalize(t_stack *a, t_frame *head)
 	}
 }
 
-
-	
-/* t_frame	*temp;
-int		curr_index;
-int		curr_element;
-
-temp = head;
-curr_index = 0;
-while (curr_index < stack->size) //is executed stack size times
+void	radix_sort(t_stack *a, t_stack *b)
 {
-	if (temp->index == -1)
+	int	bin_digits;
+	int	i;
+	int a_size;
+	int b_size;
+
+	bin_digits = 1;
+	i = 0;
+	while ((a->size - 1) >> bin_digits)
+		bin_digits++;
+	while(i < bin_digits)
 	{
-		temp->index = curr_index;
-		curr_index++;
-	}
-	else
-	{
-		temp = temp->next;
-		continue;
-	}
-	curr_element = 0;
-	while (curr_element < (stack->size - 1)) //is executed stack size times
-	{
-		if (temp->value > temp->next->value && temp->next->index == -1)
+		a_size = a->size;
+		while (a_size)
 		{
-			temp->index = -1;
-			temp = head->next;
-			temp->index = curr_index;
+			if ((a->head->index >> i) & 1)
+				ra(a);
+			else
+				pb(a, b);
+			a_size--;
 		}
-		temp = temp->next;
-		curr_element++;
+		b_size = b->size;
+		while (b_size)
+		{
+			pa(a, b);
+			b_size--;
+		}
+		i++;
 	}
-	temp = head;
-} */
+}
 

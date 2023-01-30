@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 09:56:45 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/01/30 09:49:34 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/01/30 11:28:21 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ typedef struct s_stack
 # define NORMAL 0
 
 //basic stack operations
-void	push(t_stack *stack, int value);
-int		pop(t_stack *stack);
+void	push(t_stack *stack, t_frame *frame);
+t_frame	*pop(t_stack *stack);
 void	print_stack(t_stack *stack);
 void	clear_stack(t_stack *stack);
 
@@ -66,5 +66,6 @@ int		is_sorted(t_stack *a);
 
 //radix sort
 void normalize(t_stack *a, t_frame *head);
+void	radix_sort(t_stack *a, t_stack *b);
 
 #endif

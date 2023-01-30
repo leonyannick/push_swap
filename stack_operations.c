@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:35:57 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/01/25 13:15:27 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/01/30 12:10:42 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 */
 void	swap(t_stack *stack)
 {
-	int		first_elem;
-	int		second_elem;
+	t_frame		*first_elem;
+	t_frame		*second_elem;
 
 	if (stack->size > 1)
 	{
@@ -36,12 +36,12 @@ void	swap(t_stack *stack)
 */
 void	push_y_to_x(t_stack *x, t_stack *y)
 {
-	int	value;
+	t_frame *frame;
 
 	if (y->size > 0)
 	{
-		value = pop(y);
-		push(x, value);
+		frame = pop(y);
+		push(x, frame);
 	}
 }
 

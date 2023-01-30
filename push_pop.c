@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:12:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/01/30 10:01:51 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/01/30 12:06:51 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,12 @@
 		-no return value -> maybe has to be added later in case whole stack
 		needs to be free after allocation fails
 */
-void	push(t_stack *stack, int value)
+void	push(t_stack *stack, t_frame *frame)
 {
-	t_frame		*frame;
 	t_frame		*tail;
 	
-	if (!stack)
+	if (!stack || !frame)
 		return ;
-	frame = malloc(sizeof(t_frame));
-	if (!frame)
-		return ;
-	frame->value = value;
 	if (stack->size > 0)
 	{
 		tail = stack->head->prev;
@@ -63,21 +58,24 @@ void	push(t_stack *stack, int value)
 		-NULL in case the stack is empty and there is no element
 		to be popped
 */
-int	pop(t_stack *stack)
+t_frame	*pop(t_stack *stack)
 {
-	int			popped_value;
+	//int			popped_value;
 	t_frame		*popped_frame;
 	
 	if (!stack->head)
 		return (0);
-	popped_value = stack->head->value;
+	//popped_value = stack->head->value;
 	popped_frame = stack->head;
-	stack->head = stack->head->next;
-	stack->head->prev = popped_frame->prev;
-	popped_frame->prev->next = stack->head;
-	free(popped_frame);
+	if (stack->size != 1)
+	{
+		stack->head = stack->head->next;
+		stack->head->prev = popped_frame->prev;
+		popped_frame->prev->next = stack->head;
+	}
+	//free(popped_frame);
 	(stack->size)--;
-	return (popped_value);
+	return (popped_frame);
 }
 
 void	clear_stack(t_stack *stack)
