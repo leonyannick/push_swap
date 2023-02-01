@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:43:08 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/01 16:41:37 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/01 17:40:47 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,17 +102,15 @@ int	idx_bestmove(t_stack *a, int limit)
 	}
 }
 
-void	create_chunks(t_stack *a, t_stack *b, int nchunks)
+void	create_chunks(t_stack *a, t_stack *b, int nchunks, int chunksz)
 {
 	int		limit;
-	int		chunksz;
 	int		idx;
 	int		i;
 
-	chunksz = a->size / nchunks;
 	limit = 0;
 	i = 0;
-	while (a->size > chunksz)
+	while (b->size < chunksz * (nchunks - 1))
 	{
 		if (i % chunksz == 0)
 			limit += chunksz;
@@ -152,17 +150,16 @@ void sort_leftover(t_stack *a, t_stack *b)
 	}
 }
 
-void	sort_rest(t_stack *a, t_stack *b)
+void	sort_rest(t_stack *a, t_stack *b, int nchunks, int chunksz)
 {
-	int	chunksz;
 	int	limit;
 	int	idx;
-
-	int nchunks = 3;
-
+	int	temp;
+	
+	temp = chunksz;
 	while (nchunks)
 	{
-		chunksz = 25;
+		chunksz = temp;
 		limit = b->size - 1;
 		while (chunksz)
 		{
@@ -177,6 +174,5 @@ void	sort_rest(t_stack *a, t_stack *b)
 		}
 		nchunks--;
 	}
-	
 }
 

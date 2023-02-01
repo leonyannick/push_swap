@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 09:45:47 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/01 16:39:03 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/01 17:41:29 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,14 +236,14 @@ int	main(int argc, char **argv)
 	//insertion_sort(a);
 	// normalize(a, a->head);
 	// sort_small(a, b);
+	int nchunks = 11;
+	int chunksz = a->size / nchunks;
 	normalize(a, a->head);
-	create_chunks(a, b, 4);
+	create_chunks(a, b, nchunks, chunksz);
 	//print_stack(a);
 	//print_stack(b);
 	sort_leftover(a, b);
-	print_stack(a);
-	print_stack(b);
-	sort_rest(a, b);
+	sort_rest(a, b, nchunks - 1, chunksz);
 	// print_stack(a);
 	// print_stack(b);
 	
