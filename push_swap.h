@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 09:56:45 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/01/30 11:28:21 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/01 16:35:31 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
+#include <stdio.h>
 
 typedef struct s_frame
 {
 	int				value;
-	int				index;
+	int				index_s;
 	struct s_frame	*next;
 	struct s_frame	*prev;
 }t_frame;
@@ -65,7 +66,16 @@ void	insertion_sort(t_stack *a);
 int		is_sorted(t_stack *a);
 
 //radix sort
-void normalize(t_stack *a, t_frame *head);
+void	normalize(t_stack *a, t_frame *head);
 void	radix_sort(t_stack *a, t_stack *b);
+
+//chunk sort
+int			get_index(t_stack *stack, int value);
+t_frame	*	get_nframe(t_stack *stack, int n);
+void		create_chunks(t_stack *a, t_stack *b, int nchunks);
+void		sort_leftover(t_stack *a, t_stack *b);
+int			idx_bestmove(t_stack *a, int limit);
+int	get_index_from_indexs(t_stack *stack, int index_s);
+void	sort_rest(t_stack *a, t_stack *b);
 
 #endif

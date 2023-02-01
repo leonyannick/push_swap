@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 11:56:09 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/01/30 13:34:15 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/01 13:38:38 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ void normalize(t_stack *a, t_frame *head)
 		temp = val;
 		while (ncompares)
 		{
-			if ((temp->value < (val->next->value) && val->next->index == -1))
+			if ((temp->value < (val->next->value) && val->next->index_s == -1))
 				is_biggest = 0;
 			val = val->next;
 			ncompares--;
 		}
-		if (is_biggest && temp->index == -1)
+		if (is_biggest && temp->index_s == -1)
 		{
-			temp->index = nvals;
+			temp->index_s = nvals;
 			nvals--;
 		}
 		val = head->next;
@@ -62,7 +62,7 @@ void	radix_sort(t_stack *a, t_stack *b)
 		a_size = a->size;
 		while (a_size)
 		{
-			if ((a->head->index >> i) & 1)
+			if ((a->head->index_s >> i) & 1)
 				ra(a);
 			else
 				pb(a, b);

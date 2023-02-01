@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 09:45:47 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/01/30 17:22:46 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/01 16:39:03 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	check_input(int arg_idx, char **nums, t_stack *a)
 		num = ft_atol(nums[arg_idx], &error_flag);
 		if (num > INT_MAX || is_duplicate(a, num) || error_flag)
 			return (0);
-		frame->index = -1;
+		frame->index_s = -1;
 		frame->value = num;
 		push(a, frame);
 		arg_idx--;
@@ -80,7 +80,7 @@ void	print_stack(t_stack *stack)
 		/* printf("prev: %i, ", temp->prev->value);
 		printf("val: \033[1;31m%i\033[0m ", temp->value);
 		printf("next: %i -> , ", temp->next->value); */
-		printf("\033[1;31m%i\033[0m (%i) -> ", temp->value, temp->index);
+		printf("\033[1;31m%i\033[0m (%i) -> ", temp->value, temp->index_s);
 		temp = temp->next;
 		temp_stack_size--;
 	}
@@ -155,16 +155,6 @@ int	initialize_stacks(t_stack **a, t_stack **b)
 	return (1);
 }
 
-void	n_rotate(t_stack *stack, int n)
-{
-	
-	while (n)
-	{
-		ra(stack);
-		n--;
-	}
-}
-
 void	sort_3(t_stack *a)
 {
 	int	head_val;
@@ -203,7 +193,7 @@ void	sort_small(t_stack *a, t_stack *b)
 	a_size = a->size;
 	while (curr_idx < (a_size - 3))
 	{
-		if (a->head->index == curr_idx)
+		if (a->head->index_s == curr_idx)
 		{
 			pb(a, b);
 			curr_idx++;
@@ -244,6 +234,17 @@ int	main(int argc, char **argv)
 	//print_stack(a);
 	//radix_sort(a, b);
 	//insertion_sort(a);
+	// normalize(a, a->head);
+	// sort_small(a, b);
 	normalize(a, a->head);
-	sort_small(a, b);
+	create_chunks(a, b, 4);
+	//print_stack(a);
+	//print_stack(b);
+	sort_leftover(a, b);
+	print_stack(a);
+	print_stack(b);
+	sort_rest(a, b);
+	// print_stack(a);
+	// print_stack(b);
+	
 }
