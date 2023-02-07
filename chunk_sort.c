@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   chunk_sort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:43:08 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/01 17:40:47 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:24:44 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,21 @@ int	get_index_from_indexs(t_stack *stack, int index_s)
 	frame = stack->head;
 	index = 0;
 	while (index < (stack->size - 1) && frame->index_s != index_s)
+	{
+		frame = frame->next;
+		index++;
+	}
+	return (index);
+}
+
+int	get_index_from_indexs_range(t_stack *stack, int index_s)
+{
+	t_frame *frame;
+	int		index;
+	
+	frame = stack->head;
+	index = 0;
+	while ((index < (stack->size - 1) && frame->index_s != index_s) && (index < (stack->size - 1) && frame->index_s != index_s - 1)) //&& (index < (stack->size - 2) && frame->index_s != index_s - 2))
 	{
 		frame = frame->next;
 		index++;
@@ -100,6 +115,7 @@ int	idx_bestmove(t_stack *a, int limit)
 			return (a->size - radius);
 		radius++;
 	}
+	return (0);
 }
 
 void	create_chunks(t_stack *a, t_stack *b, int nchunks, int chunksz)
@@ -150,29 +166,136 @@ void sort_leftover(t_stack *a, t_stack *b)
 	}
 }
 
-void	sort_rest(t_stack *a, t_stack *b, int nchunks, int chunksz)
+/* void	sort_rest(t_stack *a, t_stack *b)
+{
+	int	limit;
+	int	idx;
+	
+	limit = b->size - 1;
+	while (b->size)
+	{
+		idx = get_index_from_indexs(b, limit);
+		if (idx < (b->size / 2))
+			n_rotateb(b, idx, NORMAL);
+		else
+			n_rotateb(b, b->size - idx, REVERSE);
+		pa(a, b);
+		limit--;
+	}
+} */
+
+void	reorder_3(t_stack *a, t_stack *b)
+{
+	int	first;
+	int	second;
+	int	third;
+
+	first = a->head->value;
+	second = a->head->next->value;
+	third = a->head->next->next->value;
+	if (is_sorted(a)) //123
+		return ;
+	else if (first < second && first < third && third < second) //132
+	{
+		ra(a);
+		sa(a);
+		rra(a);
+	}
+	else if (first < second && first > third && third < second) //231
+	{
+		pb(a, b);
+		pb(a, b);
+		ra(a);
+		pa(a, b);
+		pa(a, b);
+		rra(a);
+		
+	}
+	else if (first > second && first > third && third < second) //321
+	{
+		sa(a);
+		pb(a, b);
+		pb(a, b);
+		ra(a);
+		pa(a, b);
+		pa(a, b);
+		rra(a);
+	}
+	else if (first > second && first < third) //213
+		sa(a);
+	else //312
+	{
+		pb(a, b);
+		ra(a);
+		ra(a);
+		pa(a, b);
+		rra(a);
+		rra(a);
+		
+	}
+}
+
+
+void	sort_rest(t_stack *a, t_stack *b)
 {
 	int	limit;
 	int	idx;
 	int	temp;
+	int	triple;
 	
-	temp = chunksz;
-	while (nchunks)
+	limit = b->size - 1;
+	while (b->size)
 	{
-		chunksz = temp;
-		limit = b->size - 1;
-		while (chunksz)
+		if (b->size == 1)
 		{
-			idx = get_index_from_indexs(b, limit);
+			pa(a, b);
+			continue;
+		}
+		triple = 2;
+		while (triple)
+		{
+			idx = get_index_from_indexs_range(b, limit);
 			if (idx < (b->size / 2))
 				n_rotateb(b, idx, NORMAL);
 			else
 				n_rotateb(b, b->size - idx, REVERSE);
 			pa(a, b);
-			limit--;
-			chunksz--;
+			triple--;
 		}
-		nchunks--;
+		limit -= 2;
+		if (a->head->value > a->head->next->value)
+			sa(a);
 	}
 }
 
+/* void	sort_rest(t_stack *a, t_stack *b)
+{
+	int	limit;
+	int	idx;
+	int	temp;
+	int	triple;
+	
+	limit = b->size - 1;
+	while (b->size)
+	{
+		if (b->size < 3)
+		{
+			pa(a, b);
+			limit--;
+			continue;
+		}
+		triple = 3;
+		while (triple)
+		{
+			idx = get_index_from_indexs_range(b, limit);
+			if (idx < (b->size / 2))
+				n_rotateb(b, idx, NORMAL);
+			else
+				n_rotateb(b, b->size - idx, REVERSE);
+			pa(a, b);
+			triple--;
+		}
+		limit -= 3;
+		reorder_3(a, b);
+	}
+} */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 09:45:47 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/01 17:41:29 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:17:04 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,15 +236,15 @@ int	main(int argc, char **argv)
 	//insertion_sort(a);
 	// normalize(a, a->head);
 	// sort_small(a, b);
-	int nchunks = 11;
+	int nchunks = 4;
 	int chunksz = a->size / nchunks;
 	normalize(a, a->head);
 	create_chunks(a, b, nchunks, chunksz);
 	//print_stack(a);
 	//print_stack(b);
 	sort_leftover(a, b);
-	sort_rest(a, b, nchunks - 1, chunksz);
-	// print_stack(a);
-	// print_stack(b);
+	//print_stack(b);
+	sort_rest(a, b);
+	print_stack(a);
 	
 }

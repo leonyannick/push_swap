@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 09:56:45 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/01 17:38:40 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/07 16:56:22 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	insertion_sort(t_stack *a);
 
 int		is_sorted(t_stack *a);
 
+void	sort_3(t_stack *a);
+
 //radix sort
 void	normalize(t_stack *a, t_frame *head);
 void	radix_sort(t_stack *a, t_stack *b);
@@ -76,6 +78,6 @@ void	create_chunks(t_stack *a, t_stack *b, int nchunks, int chunksz);
 void		sort_leftover(t_stack *a, t_stack *b);
 int			idx_bestmove(t_stack *a, int limit);
 int	get_index_from_indexs(t_stack *stack, int index_s);
-void	sort_rest(t_stack *a, t_stack *b, int nchunks, int chunksz);
+void	sort_rest(t_stack *a, t_stack *b);
 
 #endif
