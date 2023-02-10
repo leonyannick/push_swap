@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:12:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/01/30 12:06:51 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/10 10:02:10 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,7 @@ t_frame	*pop(t_stack *stack)
 	return (popped_frame);
 }
 
-void	clear_stack(t_stack *stack)
-{
-	while (stack->size)
-		pop(stack);
-}
+
 
 /* int	main(void)
 {

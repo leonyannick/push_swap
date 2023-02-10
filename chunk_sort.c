@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:43:08 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/08 15:18:03 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/10 09:51:19 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	create_chunks(t_stack *a, t_stack *b, int nchunks, int chunksz)
 
 	limit = 0;
 	i = 0;
-	while (b->size < chunksz * (nchunks - 1))
+	while (a->size > 3)
 	{
 		if (i % chunksz == 0)
 			limit += chunksz;

@@ -11,6 +11,8 @@
 		"ranges": "c",
 		"span": "c",
 		"regex": "c",
-		"utility": "c"
+		"utility": "c",
+		"limits": "c",
+		"algorithm": "c"
 	}
 }
