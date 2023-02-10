@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 09:56:45 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/07 16:56:22 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/08 15:47:12 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,29 @@ void	rr(t_stack *a, t_stack *b);
 //insertion algorithms
 void	insertion_sort(t_stack *a);
 
-int		is_sorted(t_stack *a);
-
 void	sort_3(t_stack *a);
 
 //radix sort
-void	normalize(t_stack *a, t_frame *head);
 void	radix_sort(t_stack *a, t_stack *b);
 
 //chunk sort
-int			get_index(t_stack *stack, int value);
-t_frame	*	get_nframe(t_stack *stack, int n);
 void	create_chunks(t_stack *a, t_stack *b, int nchunks, int chunksz);
 void		sort_leftover(t_stack *a, t_stack *b);
 int			idx_bestmove(t_stack *a, int limit);
 int	get_index_from_indexs(t_stack *stack, int index_s);
 void	sort_rest(t_stack *a, t_stack *b);
+
+//utilities
+int			get_index(t_stack *stack, int value);
+t_frame	*get_nframe(t_stack *stack, int n);
+int	copy_stack(t_stack *src, int src_size, t_stack **destination);
+void	free_mem(t_stack *a, t_stack *b);
+void	assign_index(t_stack *stack, int stack_size);
+
+//input
+int	initialize_stacks(t_stack **a, t_stack **b);
+int	is_sorted(t_stack *a);
+int	check_input(int arg_idx, char **nums, t_stack *a);
+int	is_duplicate(t_stack *stack, int num);
 
 #endif

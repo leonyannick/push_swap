@@ -6,52 +6,18 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 11:56:09 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/01 13:38:38 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/08 15:22:40 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
 
-void normalize(t_stack *a, t_frame *head)
-{
-	int			nvals;
-	int			ncompares;
-	int			is_biggest;
-	t_frame 	*temp;
-	t_frame		*val;
-
-	head = a->head;
-	nvals = a->size - 1;
-	val = head;
-	while (nvals > -1)
-	{
-		is_biggest = 1;
-		ncompares = (a->size - 1);
-		temp = val;
-		while (ncompares)
-		{
-			if ((temp->value < (val->next->value) && val->next->index_s == -1))
-				is_biggest = 0;
-			val = val->next;
-			ncompares--;
-		}
-		if (is_biggest && temp->index_s == -1)
-		{
-			temp->index_s = nvals;
-			nvals--;
-		}
-		val = head->next;
-		head = head->next;
-	}
-}
-
 void	radix_sort(t_stack *a, t_stack *b)
 {
 	int	bin_digits;
 	int	i;
-	int a_size;
-	int b_size;
+	int	n;
 
 	bin_digits = 1;
 	i = 0;
@@ -59,21 +25,17 @@ void	radix_sort(t_stack *a, t_stack *b)
 		bin_digits++;
 	while(i < bin_digits)
 	{
-		a_size = a->size;
-		while (a_size)
+		n = a->size;
+		while (n)
 		{
 			if ((a->head->index_s >> i) & 1)
 				ra(a);
 			else
 				pb(a, b);
-			a_size--;
+			n--;
 		}
-		b_size = b->size;
-		while (b_size)
-		{
+		while (b->size)
 			pa(a, b);
-			b_size--;
-		}
 		i++;
 	}
 }

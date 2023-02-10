@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   chunk_sort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:43:08 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/07 17:24:44 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/08 15:18:03 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int	get_index(t_stack *stack, int value)
-{
-	t_frame *frame;
-	int		index;
-	
-	frame = stack->head;
-	index = 0;
-	while (index < (stack->size - 1) && frame->value != value)
-	{
-		frame = frame->next;
-		index++;
-	}
-	return (index);
-}
 
 int	get_index_from_indexs(t_stack *stack, int index_s)
 {
@@ -49,27 +34,12 @@ int	get_index_from_indexs_range(t_stack *stack, int index_s)
 	
 	frame = stack->head;
 	index = 0;
-	while ((index < (stack->size - 1) && frame->index_s != index_s) && (index < (stack->size - 1) && frame->index_s != index_s - 1)) //&& (index < (stack->size - 2) && frame->index_s != index_s - 2))
+	while ((index < (stack->size - 1) && frame->index_s != index_s) && (index < (stack->size - 1) && frame->index_s != index_s - 1)) // && (index < (stack->size - 2) && frame->index_s != index_s - 2))
 	{
 		frame = frame->next;
 		index++;
 	}
 	return (index);
-}
-
-t_frame *get_nframe(t_stack *stack, int n)
-{
-	int		i;
-	t_frame	*head;
-
-	i = 0;
-	head = stack->head;
-	while (i < n)
-	{
-		head = head->next;
-		i++;
-	}
-	return(head);
 }
 
 void	n_rotate(t_stack *stack, int n, int reverse)
@@ -118,6 +88,27 @@ int	idx_bestmove(t_stack *a, int limit)
 	return (0);
 }
 
+int	idx_bestmove_range(t_stack *stack, int limit)
+{
+	int	radius;
+	t_frame *nframe;
+
+	if (stack->head->index_s == limit || stack->head->index_s == (limit - 1) || stack->head->index_s == (limit - 2))
+		return (0);
+	radius = 1;
+	while(radius <= (((stack->size - 1) / 2) + 1))
+	{
+		nframe = get_nframe(stack, radius);
+		if (nframe->index_s == limit || nframe->index_s == (limit - 1) || nframe->index_s == (limit - 2))
+			return (radius);
+		nframe = get_nframe(stack, (stack->size - radius));
+		if (nframe->index_s == limit || nframe->index_s == (limit - 1) || nframe->index_s == (limit - 2))
+			return (stack->size - radius);
+		radius++;
+	}
+	return (0);
+}
+
 void	create_chunks(t_stack *a, t_stack *b, int nchunks, int chunksz)
 {
 	int		limit;
@@ -145,19 +136,27 @@ void sort_leftover(t_stack *a, t_stack *b)
 	int	i;
 	int	idx;
 	int n;
+	int	pair;
 
 	i = 0;
 	n = b->size + 1;
 	while (a->size > 1)
 	{
-		idx = idx_bestmove(a, n);
-		if (idx < (a->size / 2))
-			n_rotate(a, idx, NORMAL);
-		else
-			n_rotate(a, a->size - idx, REVERSE);
-		i++;
-		n++;
-		pb(a, b);
+		pair = 2;
+		while (pair)
+		{
+			idx = idx_bestmove_range(a, n);
+			if (idx < (a->size / 2))
+				n_rotate(a, idx, NORMAL);
+			else
+				n_rotate(a, a->size - idx, REVERSE);
+			pb(a, b);
+			pair--;
+		}
+		n += 2;
+		i += 2;
+		if (b->head->value < b->head->next->value)
+			sb(b);
 	}
 	while (i)
 	{
@@ -240,32 +239,27 @@ void	sort_rest(t_stack *a, t_stack *b)
 {
 	int	limit;
 	int	idx;
-	int	temp;
-	int	triple;
+	int	pair;
 	
 	limit = b->size - 1;
-	while (b->size)
+	while (b->size > 1)
 	{
-		if (b->size == 1)
+		pair = 2;
+		while (pair)
 		{
-			pa(a, b);
-			continue;
-		}
-		triple = 2;
-		while (triple)
-		{
-			idx = get_index_from_indexs_range(b, limit);
+			idx = idx_bestmove_range(b, limit);
 			if (idx < (b->size / 2))
 				n_rotateb(b, idx, NORMAL);
 			else
 				n_rotateb(b, b->size - idx, REVERSE);
 			pa(a, b);
-			triple--;
+			pair--;
 		}
 		limit -= 2;
 		if (a->head->value > a->head->next->value)
 			sa(a);
 	}
+	pa(a, b);
 }
 
 /* void	sort_rest(t_stack *a, t_stack *b)
@@ -287,7 +281,7 @@ void	sort_rest(t_stack *a, t_stack *b)
 		triple = 3;
 		while (triple)
 		{
-			idx = get_index_from_indexs_range(b, limit);
+			idx = idx_bestmove_range(b, limit);
 			if (idx < (b->size / 2))
 				n_rotateb(b, idx, NORMAL);
 			else

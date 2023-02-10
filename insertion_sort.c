@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 12:14:38 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/01/27 14:44:46 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/08 15:13:26 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,20 @@ void	insertion_sort(t_stack *a)
 		cnt = 1;
 		while (j > 0 && (a->head->value) > (a->head->next->value))
 		{
-			sa(a);
+			swap(a);
 			if (j > 1)
 			{
-				rra(a);
+				rotate(a, REVERSE);
 				cnt++;
 			}
 			j--;
 		}
 		while (cnt)
 		{
-			ra(a);
+			rotate(a, NORMAL);
 			cnt--;
 		}
 		i++;
 	}
-	ra(a);
+	rotate(a, NORMAL);
 }
