@@ -3,43 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   cost_sort.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 09:59:02 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/10 21:35:37 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/11 17:03:28 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int	abs(int nb)
-{
-	if (nb < 0)
-		return (-nb);
-	return (nb);
-}
 
 /*
 assigns a value to the pos attribute of each frame in b. the value states how
 many rotations are needed to bring this element to the top. a negative value
 indicates reverse rotations
 */
-void	determine_pos(t_stack *b)
+void	determine_pos(t_stack *stack)
 {
-	int	pos;
+	int		pos;
 	t_frame	*frame;
-	
-	frame = b->head;
+
+	frame = stack->head;
 	pos = 0;
-	while (pos < ((b->size / 2) + 1))
+	while (pos < ((stack->size / 2) + 1))
 	{
 		frame->pos = pos;
 		frame = frame->next;
 		pos++;
 	}
 	pos = -1;
-	frame = b->head->prev;
-	while (-pos < ((b->size / 2) + 1))
+	frame = stack->head->prev;
+	while (-pos < ((stack->size / 2) + 1))
 	{
 		frame->pos = pos;
 		frame = frame->prev;
@@ -52,27 +45,22 @@ assigns the cost attribute.
 */
 void	determine_dest(t_stack *a, t_stack *b, int asize, int bsize)
 {
-	t_frame	*smallest;
+	t_frame	*temp;
 	t_frame	*a_frame;
 	t_frame	*b_frame;
-	
-	determine_pos(a);
+
 	b_frame = b->head;
 	while (bsize)
 	{
 		asize = a->size;
-		a_frame = a->head;
-		smallest = 0;
-		while (asize)
+		temp = next_smallest(a, a->size, b_frame);
+		if (temp)
+			b_frame->dest = temp->pos;
+		else
 		{
-			if (a_frame->index_s > b_frame->index_s && smallest == 0)
-				smallest = a_frame;
-			if (smallest && a_frame->index_s < smallest->index_s && a_frame->index_s > b_frame->index_s)
-				smallest = a_frame;
-			a_frame = a_frame->next;
-			asize--;
+			temp = next_biggest(a, a->size, b_frame);
+			b_frame->dest = temp->pos + 1;
 		}
-		b_frame->dest = smallest->pos;
 		b_frame = b_frame->next;
 		bsize--;
 	}
@@ -91,20 +79,40 @@ void	calculate_costs(t_stack *b, int bsize)
 	}
 }
 
-t_frame *get_frame_mincost(t_stack *b, int bsize)
+void	rotate_to_start(t_stack *a)
 {
-	int		i;
-	t_frame	*bframe;
+	t_frame	*aframe;
+
+	determine_pos(a);
+	aframe = a->head;
+	while (aframe->index_s != 0)
+		aframe = aframe->next;
+	while (aframe->pos > 0)
+	{
+		ra(a);
+		aframe->pos--;
+	}
+	while (aframe->pos < 0)
+	{
+		rra(a);
+		aframe->pos++;
+	}
+}
+
+void	cost_sort(t_stack *a, t_stack *b)
+{
 	t_frame	*min;
 
-	bframe = b->head;
-	min = bframe;
-	while (bsize)
+	while (b->size)
 	{
-		if (min->cost > bframe->cost)
-			min = bframe;
-		bframe = bframe->next;
-		bsize--;
+		determine_pos(b);
+		determine_pos(a);
+		determine_dest(a, b, a->size, b->size);
+		calculate_costs(b, b->size);
+		min = get_frame_mincost(b, b->size);
+		while (min->pos || min->dest)
+			min = determine_rotation(min, a, b);
+		pa(a, b);
 	}
-	return (min);
+	rotate_to_start(a);
 }

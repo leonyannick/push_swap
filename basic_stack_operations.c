@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:12:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/10 10:02:10 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/11 17:13:40 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 void	push(t_stack *stack, t_frame *frame)
 {
 	t_frame		*tail;
-	
+
 	if (!stack || !frame)
 		return ;
 	if (stack->size > 0)
@@ -60,12 +60,10 @@ void	push(t_stack *stack, t_frame *frame)
 */
 t_frame	*pop(t_stack *stack)
 {
-	//int			popped_value;
 	t_frame		*popped_frame;
-	
+
 	if (!stack->head)
 		return (0);
-	//popped_value = stack->head->value;
 	popped_frame = stack->head;
 	if (stack->size != 1)
 	{
@@ -73,27 +71,6 @@ t_frame	*pop(t_stack *stack)
 		stack->head->prev = popped_frame->prev;
 		popped_frame->prev->next = stack->head;
 	}
-	//free(popped_frame);
 	(stack->size)--;
 	return (popped_frame);
 }
-
-
-
-/* int	main(void)
-{
-	t_stack	*a;
-	a = malloc(sizeof(t_stack));
-	a->size = 0;
-	a->head = NULL;
-	// t_frame	*temp;
-
-
-	push(a, 5);
-	push(a, 1);
-	push(a, 3);
-	print_stack(a);
-	// temp = pop(a);
-	// printf("temp.value: %i\n", temp->value);
-	// print_stack(a);
-} */

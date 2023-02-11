@@ -1,5 +1,6 @@
 #!/bin/bash
-for i in {1..200}
+rm file1.csv
+for i in {1..20000}
 do
-    shuf -i1-5 | xargs ./push_swap | wc -l
+    shuf -i0-99 | xargs ./push_swap | wc -l >> file1.csv
 done

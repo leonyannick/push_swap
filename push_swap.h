@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 09:56:45 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/10 12:18:58 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/11 17:07:33 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	rra(t_stack *a);
 void	rrr(t_stack *a, t_stack *b);
 void	rr(t_stack *a, t_stack *b);
 
-//insertion algorithms
+//insertion algorithm
 void		insertion_sort(t_stack *a);
 
 void		sort_3(t_stack *a);
@@ -80,7 +80,15 @@ void		sort_rest(t_stack *a, t_stack *b);
 void	determine_pos(t_stack *b);
 void	determine_dest(t_stack *a, t_stack *b, int asize, int bsize);
 void	calculate_costs(t_stack *b, int bsize);
-t_frame *get_frame_mincost(t_stack *b, int bsize);
+t_frame	*get_frame_mincost(t_stack *b, int bsize);
+void	cost_sort(t_stack *a, t_stack *b);
+
+//cost sort util
+int		abs(int nb);
+void	rotate_to_start(t_stack* a);
+t_frame	*next_smallest(t_stack *stack, int stacksize, t_frame *frame);
+t_frame	*next_biggest(t_stack *stack, int stacksize, t_frame *frame);
+t_frame	*determine_rotation(t_frame *min, t_stack *a, t_stack *b);
 
 //utilities
 int			get_index(t_stack *stack, int value);

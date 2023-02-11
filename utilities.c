@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:45:14 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/10 18:11:35 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/11 13:41:57 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,12 +164,12 @@ void	print_stacks(t_stack *a, t_stack *b, int asize, int bsize)
 
 	temp_a = a->head;
 	temp_b = b->head;
-	printf("A \t s(A) \t B \t s(B) \t p(B) \t d(B) \t c(B)\n");
+	printf("A \t p(A) \t B \t p(B) \t d(B) \t c(B)\n");
 	while (asize || bsize)
 	{
 		if (asize)
 		{
-			printf("%i \t %i \t ", temp_a->value, temp_a->index_s);
+			printf("%i \t %i \t ", temp_a->value, temp_a->pos);
 			temp_a = temp_a->next;
 			asize--;
 		}
@@ -177,12 +177,12 @@ void	print_stacks(t_stack *a, t_stack *b, int asize, int bsize)
 			printf("- \t - \t ");
 		if (bsize)
 		{
-			printf("%i \t %i \t %i \t %i \t %i \t\n", temp_b->value, temp_b->index_s, temp_b->pos, temp_b->dest, temp_b->cost);
+			printf("%i \t %i \t %i \t %i \t\n", temp_b->value, temp_b->pos, temp_b->dest, temp_b->cost);
 			temp_b = temp_b->next;
 			bsize--;
 		}
 		else
-			printf("- \t - \t - \t - \t -\n");
+			printf("- \t - \t - \t -\n");
 		
 	}
 	printf("\n");

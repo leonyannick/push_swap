@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 09:45:47 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/10 17:51:24 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/11 15:51:44 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,62 +82,10 @@ int	main(int argc, char **argv)
 	if (is_sorted(a))
 		return (0);
 	assign_index(a, a->size);
-	if (a->size == 3)
-		sort_3(a);
-	else
-	{
-		int nchunks = 2;
-		int chunksz = (a->size - 3) / nchunks;
-		create_chunks(a, b, nchunks, chunksz);
-		sort_3(a);
-		t_frame *min;
-		while (b->size)
-		{
-			
-			determine_pos(b);
-			determine_dest(a, b, a->size, b->size);
-			calculate_costs(b, b->size);
-			min = get_frame_mincost(b, b->size);
-			print_stacks(a, b, a->size, b->size);
-			while (min->pos > 0 && min->dest > 0)
-			{
-				rr(a, b);
-				min->pos--;
-				min->dest--;
-			}
-			while (min->pos < 0 && min->dest < 0)
-			{
-				rrr(a, b);
-				min->pos++;
-				min->dest++;
-			}
-			while (min->pos > 0)
-			{
-				rb(b);
-				min->pos--;
-			}
-			while (min->dest > 0)
-			{
-				ra(a);
-				min->dest--;
-			}
-			while (min->pos < 0)
-			{
-				rrb(b);
-				min->pos++;
-			}
-			while (min->dest < 0)
-			{
-				rra(b);
-				min->dest++;
-			}
-			pa(a, b);
-		}
-
-
-
-		print_stacks(a, b, a->size, b->size);
-		
-		
-	}
+	int nchunks = 3;
+	int chunksz = a->size / nchunks;
+	create_chunks(a, b, nchunks, chunksz);
+	sort_3(a);
+	cost_sort(a, b);
+	// print_stacks(a, b, a->size, b->size);
 }
