@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_pop.c                                         :+:      :+:    :+:   */
+/*   basic_stack_operations.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:12:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/11 17:13:40 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/11 17:31:27 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,49 @@ t_frame	*pop(t_stack *stack)
 	}
 	(stack->size)--;
 	return (popped_frame);
+}
+
+/*
+-swaps the first 2 elements of the specified stack
+-swap only happens if stack contains at least 2 frames
+*/
+void	swap(t_stack *stack)
+{
+	t_frame		*first_elem;
+	t_frame		*second_elem;
+
+	if (stack->size > 1)
+	{
+		first_elem = pop(stack);
+		second_elem = pop(stack);
+		push(stack, first_elem);
+		push(stack, second_elem);
+	}
+}
+
+/*
+-pops first element of stack y and pushes it to stack x
+-only executed when y has at least one element
+*/
+void	push_y_to_x(t_stack *x, t_stack *y)
+{
+	t_frame	*frame;
+
+	if (y->size > 0)
+	{
+		frame = pop(y);
+		push(x, frame);
+	}
+}
+
+/*
+-normal (reverse == 0): first element becomes last
+-reverse (reverse == 1): last elemebt becomes first
+*/
+void	rotate(t_stack *stack, int reverse)
+{
+	if (reverse)
+		stack->head = stack->head->prev;
+	else
+		stack->head = stack->head->next;
 }

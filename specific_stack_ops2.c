@@ -1,41 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   insertion_sort.c                                   :+:      :+:    :+:   */
+/*   specific_stack_ops2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/25 12:14:38 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/11 17:43:46 by lbaumann         ###   ########.fr       */
+/*   Created: 2023/02/11 17:33:20 by lbaumann          #+#    #+#             */
+/*   Updated: 2023/02/11 17:33:33 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
-void	insertion_sort(t_stack *a, int i, int j, int cnt)
+void pb(t_stack *a, t_stack *b)
 {
-	i = 1;
-	while (i < a->size)
-	{
-		j = i;
-		cnt = 1;
-		while (j > 0 && (a->head->value) > (a->head->next->value))
-		{
-			swap(a);
-			if (j > 1)
-			{
-				rotate(a, REVERSE);
-				cnt++;
-			}
-			j--;
-		}
-		while (cnt)
-		{
-			rotate(a, NORMAL);
-			cnt--;
-		}
-		i++;
-	}
+	ft_printf("pb\n");
+	push_y_to_x(b, a);
+}
+
+void ra(t_stack *a)
+{
+	ft_printf("ra\n");
 	rotate(a, NORMAL);
+}
+
+void rb(t_stack *b)
+{
+	ft_printf("rb\n");
+	rotate(b, NORMAL);
+}
+
+void rrb(t_stack *b)
+{
+	ft_printf("rrb\n");
+	rotate(b, REVERSE);
 }

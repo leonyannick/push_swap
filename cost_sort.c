@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 09:59:02 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/11 17:03:28 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/11 17:23:35 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	calculate_costs(t_stack *b, int bsize)
 	bframe = b->head;
 	while (bsize)
 	{
-		bframe->cost = abs(bframe->dest) + abs(bframe->pos);
+		bframe->cost = abs_val(bframe->dest) + abs_val(bframe->pos);
 		bframe = bframe->next;
 		bsize--;
 	}

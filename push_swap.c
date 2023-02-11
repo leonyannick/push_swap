@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 09:45:47 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/11 15:51:44 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/11 17:39:07 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,35 +42,12 @@ void	sort_3(t_stack *a)
 		rra(a);
 }
 
-void	sort_small(t_stack *a, t_stack *b)
-{
-	int		curr_idx;
-	int		a_size;
-	
-	curr_idx = 0;
-	a_size = a->size;
-	while (curr_idx < (a_size - 3))
-	{
-		if (a->head->index_s == curr_idx)
-		{
-			pb(a, b);
-			curr_idx++;
-		}
-		else
-			ra(a);
-	}
-	sort_3(a);
-	while (curr_idx)
-	{
-		pa(a, b);
-		curr_idx--;
-	}
-}
-
 int	main(int argc, char **argv)
 {
 	t_stack		*a;
 	t_stack		*b;
+	int			nchunks;
+	int			chunksz;
 	
 	argv++;
 	argc -= 2;
@@ -82,10 +59,9 @@ int	main(int argc, char **argv)
 	if (is_sorted(a))
 		return (0);
 	assign_index(a, a->size);
-	int nchunks = 3;
-	int chunksz = a->size / nchunks;
+	nchunks = 3;
+	chunksz = a->size / nchunks;
 	create_chunks(a, b, nchunks, chunksz);
 	sort_3(a);
 	cost_sort(a, b);
-	// print_stacks(a, b, a->size, b->size);
 }

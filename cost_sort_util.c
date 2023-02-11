@@ -6,13 +6,13 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 17:00:35 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/11 17:10:50 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/11 17:23:10 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	abs(int nb)
+int	abs_val(int nb)
 {
 	if (nb < 0)
 		return (-nb);

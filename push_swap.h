@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 09:56:45 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/11 17:07:33 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/11 17:44:03 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,55 +40,52 @@ typedef struct s_stack
 # define NORMAL 0
 
 //basic stack operations
-void	push(t_stack *stack, t_frame *frame);
-t_frame	*pop(t_stack *stack);
+void		push(t_stack *stack, t_frame *frame);
+t_frame		*pop(t_stack *stack);
+void		swap(t_stack *stack);
+void		push_y_to_x(t_stack *x, t_stack *y);
+void		rotate(t_stack *stack, int reverse);
 
-//more specific stack operations
-void	swap(t_stack *stack);
-void	push_y_to_x(t_stack *x, t_stack *y);
-void	rotate(t_stack *stack, int reverse);
+//specific stack operations
+void		sa(t_stack *a);
+void		sb(t_stack *b);
+void		ss(t_stack *a, t_stack *b);
+void		pa(t_stack *a, t_stack *b);
+void		pb(t_stack *a, t_stack *b);
+void		ra(t_stack *a);
+void		rb(t_stack *b);
+void		rrb(t_stack *b);
+void		rra(t_stack *a);
+void		rrr(t_stack *a, t_stack *b);
+void		rr(t_stack *a, t_stack *b);
 
-//really specific stack operations
-void	sa(t_stack *a);
-void	sb(t_stack *b);
-void	ss(t_stack *a, t_stack *b);
-void	pa(t_stack *a, t_stack *b);
-void	pb(t_stack *a, t_stack *b);
-void	ra(t_stack *a);
-void	rb(t_stack *b);
-void	rrb(t_stack *b);
-void	rra(t_stack *a);
-void	rrr(t_stack *a, t_stack *b);
-void	rr(t_stack *a, t_stack *b);
-
-//insertion algorithm
-void		insertion_sort(t_stack *a);
-
+//push_swap
 void		sort_3(t_stack *a);
+
+//insertion sort
+void	insertion_sort(t_stack *a, int i, int j, int cnt);
 
 //radix sort
 void		radix_sort(t_stack *a, t_stack *b);
 
-//chunk sort
+//create chunks
 void		create_chunks(t_stack *a, t_stack *b, int nchunks, int chunksz);
-void		sort_leftover(t_stack *a, t_stack *b);
 int			idx_bestmove(t_stack *a, int limit);
-int			get_index_from_indexs(t_stack *stack, int index_s);
-void		sort_rest(t_stack *a, t_stack *b);
+void		n_rotate(t_stack *stack, int n, int reverse);
 
 //cost sort
-void	determine_pos(t_stack *b);
-void	determine_dest(t_stack *a, t_stack *b, int asize, int bsize);
-void	calculate_costs(t_stack *b, int bsize);
-t_frame	*get_frame_mincost(t_stack *b, int bsize);
-void	cost_sort(t_stack *a, t_stack *b);
+void		determine_pos(t_stack *b);
+void		determine_dest(t_stack *a, t_stack *b, int asize, int bsize);
+void		calculate_costs(t_stack *b, int bsize);
+t_frame	*	get_frame_mincost(t_stack *b, int bsize);
+void		cost_sort(t_stack *a, t_stack *b);
 
 //cost sort util
-int		abs(int nb);
-void	rotate_to_start(t_stack* a);
-t_frame	*next_smallest(t_stack *stack, int stacksize, t_frame *frame);
-t_frame	*next_biggest(t_stack *stack, int stacksize, t_frame *frame);
-t_frame	*determine_rotation(t_frame *min, t_stack *a, t_stack *b);
+int			abs_val(int nb);
+void		rotate_to_start(t_stack* a);
+t_frame	*	next_smallest(t_stack *stack, int stacksize, t_frame *frame);
+t_frame	*	next_biggest(t_stack *stack, int stacksize, t_frame *frame);
+t_frame	*	determine_rotation(t_frame *min, t_stack *a, t_stack *b);
 
 //utilities
 int			get_index(t_stack *stack, int value);
@@ -96,9 +93,9 @@ t_frame	*	get_nframe(t_stack *stack, int n);
 int			copy_stack(t_stack *src, int src_size, t_stack **destination);
 void		free_mem(t_stack *a, t_stack *b);
 void		assign_index(t_stack *stack, int stack_size);
-void		print_stack(t_stack *stack);
 void		clear_stack(t_stack *stack);
-void	print_stacks(t_stack *a, t_stack *b, int asize, int bsize);
+//void		print_stack(t_stack *stack);
+//void		print_stacks(t_stack *a, t_stack *b, int asize, int bsize);
 
 //input
 int			initialize_stacks(t_stack **a, t_stack **b);
