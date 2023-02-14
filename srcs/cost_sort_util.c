@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 17:00:35 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/13 12:42:02 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:29:53 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ t_frame	*next_smallest(t_stack *stack, int stacksize, t_frame *frame)
 	smallest = 0;
 	while (stacksize)
 	{
-		if (temp->index_s > frame->index_s && !smallest)
+		if (temp->index_s < frame->index_s && !smallest)
 			smallest = temp;
-		if (smallest && temp->index_s > frame->index_s
-			&& temp->index_s < smallest->index_s)
+		if (smallest && temp->index_s < frame->index_s
+			&& temp->index_s > smallest->index_s)
 			smallest = temp;
 		temp = temp->next;
 		stacksize--;
@@ -48,10 +48,10 @@ t_frame	*next_biggest(t_stack *stack, int stacksize, t_frame *frame)
 	biggest = 0;
 	while (stacksize)
 	{
-		if (temp->index_s < frame->index_s && !biggest)
+		if (temp->index_s > frame->index_s && !biggest)
 			biggest = temp;
-		if (biggest && temp->index_s < frame->index_s
-			&& temp->index_s > biggest->index_s)
+		if (biggest && temp->index_s > frame->index_s
+			&& temp->index_s < biggest->index_s)
 			biggest = temp;
 		temp = temp->next;
 		stacksize--;
