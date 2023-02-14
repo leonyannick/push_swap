@@ -3,48 +3,77 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+         #
+#    By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/20 14:40:37 by lbaumann          #+#    #+#              #
-#    Updated: 2023/01/27 23:41:37 by lbaumann         ###   ########.fr        #
+#    Updated: 2023/02/14 12:20:48 by lbaumann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
-
-LIBFT = libft
-LIBFT_A = libft/libft.a
+B_NAME = checker
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 
-SRCS = stack_operations.c push_swap.c push_pop.c insertion_sort.c radix_sort.c
-T_SRCS = tests/test_push_pop.c
+SRCDIR = srcs/
+INCDIR = includes/
+OBJDIR = objs/
+LIBDIR = srcs/libft/
 
-OBJS = ${SRCS:.c=.o}
-T_OBJS = ${T_SRCS:.c=.o}
+#CFLAGS	+= -I $(INCDIR)$(HEADERS)
+
+SRC = basic_stack_ops.c cost_sort_util.c create_chunks.c \
+radix_sort.c insertion_sort.c specific_stack_ops2.c specific_stack_ops3.c \
+utils1.c utils2.c input.c specific_stack_ops1.c cost_sort.c push_swap.c
+
+B_SRC = basic_stack_ops.c cost_sort_util.c create_chunks.c \
+radix_sort.c insertion_sort.c specific_stack_ops2.c specific_stack_ops3.c \
+utils1.c utils2.c input.c specific_stack_ops1.c cost_sort.c checker.c
+
+LIB = $(LIBDIR)libft.a
+LIBINCL = -L$(LIBDIR) -lft
+
+HEADERS = push_swap.h
+
+SRCS := $(addprefix $(SRCDIR), $(SRC))
+OBJ := $(SRC:.c=.o)
+OBJS := $(addprefix $(OBJDIR), $(OBJ))
+
+B_SRCS := $(addprefix $(SRCDIR), $(B_SRC))
+B_OBJ := $(B_SRC:.c=.o)
+B_OBJS := $(addprefix $(OBJDIR), $(B_OBJ))
 
 all: $(NAME)
 
-$(NAME): $(LIBFT_A)
-	gcc -g *.c -L. -lft -o $(NAME)
+$(NAME): $(LIB) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBINCL) -o $(NAME)
 
-$(LIBFT_A):
-	$(MAKE) -C $(LIBFT)
-	mv $(LIBFT_A) .
+$(OBJDIR)%.o: $(SRCDIR)%.c
+	mkdir -p $(OBJDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(LIB):
+	$(MAKE) -C $(LIBDIR)
 
 clean:
-	rm -f $(OBJS)
-	$(MAKE) clean -C libft
+	rm -rf $(OBJDIR)
+	$(MAKE) clean -C $(LIBDIR)
 
 fclean: clean
 	rm -f $(NAME)
-	$(MAKE) fclean -C libft
+	rm -f $(B_NAME)
+	$(MAKE) fclean -C $(LIBDIR)
 
 re: fclean all
+	
+bonus: $(B_NAME)
 
-test: $(T_OBJS) $(OBJS) $(LIBFT_A)
-	cc $(T_OBJS) $(OBJS) -L. -lft -o test
-	./test
+$(B_NAME): $(LIB) $(B_OBJS)
+	$(CC) $(CFLAGS) $(B_OBJS) $(LIBINCL) -o $(B_NAME)
 
-.PHONY: all clean fclean re test
+$(OBJDIR)%.o: $(SRCDIR)%.c
+	mkdir -p $(OBJDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+.PHONY: all clean fclean re test bonus

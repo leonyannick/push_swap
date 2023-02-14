@@ -1,41 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_swap.c                                        :+:      :+:    :+:   */
+/*   specific_stack_ops1.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/24 13:04:07 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/01/24 13:05:32 by lbaumann         ###   ########.fr       */
+/*   Created: 2023/02/13 09:50:10 by lbaumann          #+#    #+#             */
+/*   Updated: 2023/02/14 12:23:10 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	main(void)
+#include "../includes/push_swap.h"
+
+void	sa(t_stack *a)
 {
-	//tests for swap:
-	t_stack	*a;
-	a = malloc(sizeof(t_stack));
-	a->size = 0;
+	ft_printf("sa\n");
+	swap(a);
+}
 
-	//empty stack swap
-	a->head = NULL;
-	swap(a);
-	print_stack(a);
+void	sb(t_stack *b)
+{
+	ft_printf("sb\n");
+	swap(b);
+}
 
-	//one element swap
-	push(a, 5);push_y_to_x(a, b);
-	print_stack(a);
+void	ss(t_stack *a, t_stack *b)
+{
+	ft_printf("ss\n");
 	swap(a);
-	printf("swapped:\n");
-	print_stack(a);
-	printf("\n");
-	
-	//normal swap
-	push(a, 1);
-	push(a, 3);
-	print_stack(a);
-	swap(a);
-	printf("swapped:\n");
-	print_stack(a);
-	printf("\n");
+	swap(b);
+}
+
+void	pa(t_stack *a, t_stack *b)
+{
+	ft_printf("pa\n");
+	push_y_to_x(a, b);
 }

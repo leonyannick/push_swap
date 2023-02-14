@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/08 15:43:34 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/08 15:47:59 by lbaumann         ###   ########.fr       */
+/*   Created: 2023/02/13 09:51:41 by lbaumann          #+#    #+#             */
+/*   Updated: 2023/02/14 14:47:14 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 int	is_duplicate(t_stack *stack, int num)
 {
@@ -29,18 +29,25 @@ int	is_duplicate(t_stack *stack, int num)
 	return (0);
 }
 
-int	check_input(int arg_idx, char **nums, t_stack *a)
+static void	freesplit(char **arr)
 {
-	int		error_flag;
-	long	num;
-	t_frame	*frame;
+	size_t	i;
 
-	if (arg_idx < 0)
-		return (0);
-	if (arg_idx == 0)
-		nums = ft_split(nums[0], ' ', &arg_idx);
-	if (!nums[0])
-		return (0);
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}
+
+static int	check_and_assign(int arg_idx, char **nums, int is_str, t_stack *a)
+{
+	t_frame	*frame;
+	long	num;
+	int		error_flag;
+
 	while (arg_idx >= 0)
 	{
 		frame = malloc(sizeof(t_frame));
@@ -49,8 +56,11 @@ int	check_input(int arg_idx, char **nums, t_stack *a)
 		num = ft_atol(nums[arg_idx], &error_flag);
 		if (num < INT_MIN || num > INT_MAX || is_duplicate(a, num)
 			|| error_flag)
-			return (0);
-		frame->index_s = -1;
+		{
+			if (is_str)
+				freesplit(nums);
+			return (free(frame), 0);
+		}
 		frame->value = num;
 		push(a, frame);
 		arg_idx--;
@@ -58,30 +68,25 @@ int	check_input(int arg_idx, char **nums, t_stack *a)
 	return (1);
 }
 
-int	is_sorted(t_stack *a)
+int	check_input(int arg_idx, char **args, t_stack *a)
 {
-	int			nvals;
-	int			ncompares;
-	t_frame		*head;
-	t_frame		*val;
+	char	**nums;
+	int		is_str;
 
-	head = a->head;
-	nvals = (a->size - 1);
-	while (nvals)
+	is_str = 0;
+	if (arg_idx < 0)
+		return (0);
+	if (arg_idx == 0)
 	{
-		ncompares = nvals;
-		val = head;
-		while (ncompares)
-		{
-			if ((val->value) > (val->next->value))
-				return (0);
-			val = val->next;
-			ncompares--;
-		}
-		val = head->next;
-		head = head->next;
-		nvals--;
+		nums = ft_split(args[0], ' ', &arg_idx);
+		is_str = 1;
 	}
+	else
+		nums = args;
+	if (!check_and_assign(arg_idx, nums, is_str, a))
+		return (0);
+	if (is_str)
+		freesplit(nums);
 	return (1);
 }
 

@@ -1,33 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utilities.c                                        :+:      :+:    :+:   */
+/*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:45:14 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/08 15:31:50 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/13 09:59:09 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
-int	get_index(t_stack *stack, int value)
-{
-	t_frame *frame;
-	int		index;
-	
-	frame = stack->head;
-	index = 0;
-	while (index < (stack->size - 1) && frame->value != value)
-	{
-		frame = frame->next;
-		index++;
-	}
-	return (index);
-}
-
-t_frame *get_nframe(t_stack *stack, int n)
+t_frame	*get_nframe(t_stack *stack, int n)
 {
 	int		i;
 	t_frame	*head;
@@ -39,63 +24,37 @@ t_frame *get_nframe(t_stack *stack, int n)
 		head = head->next;
 		i++;
 	}
-	return(head);
+	return (head);
 }
-
-/* void normalize(t_stack *a, t_frame *head)
-{
-	int			nvals;
-	int			ncompares;
-	int			is_biggest;
-	t_frame		*temp;
-	t_frame		*val;
-
-	head = a->head;
-	nvals = a->size - 1;
-	val = head;
-	while (nvals > -1)
-	{
-		is_biggest = 1;
-		ncompares = (a->size - 1);
-		temp = val;
-		while (ncompares)
-		{
-			if ((temp->value < (val->next->value) && val->next->index_s == -1))
-				is_biggest = 0;
-			val = val->next;
-			ncompares--;
-		}
-		if (is_biggest && temp->index_s == -1)
-		{
-			temp->index_s = nvals;
-			nvals--;
-		}
-		val = head->next;
-		head = head->next;
-	}
-} */
 
 void	free_mem(t_stack *a, t_stack *b)
 {
 	if (a)
-	{
 		clear_stack(a);
-		free(a);
-	}
+	free(a);
 	if (b)
-	{
 		clear_stack(b);
-		free(b);
+	free(b);
+}
+
+void	clear_stack(t_stack *stack)
+{
+	t_frame	*popped;
+
+	while (stack->size)
+	{
+		popped = pop(stack);
+		free(popped);
 	}
 }
 
 void	assign_index(t_stack *stack, int stack_size)
 {
 	t_stack	*a_sorted;
-	t_frame *frame;
+	t_frame	*frame;
 
 	copy_stack(stack, stack_size, &a_sorted);
-	insertion_sort(a_sorted);
+	insertion_sort(a_sorted, 0, 0, 0);
 	frame = stack->head;
 	while (stack_size)
 	{
@@ -131,4 +90,3 @@ int	copy_stack(t_stack *src, int src_size, t_stack **destination)
 	}
 	return (1);
 }
-

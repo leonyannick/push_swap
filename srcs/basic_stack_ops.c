@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_pop.c                                         :+:      :+:    :+:   */
+/*   basic_stack_ops.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:12:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/01/30 12:06:51 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/14 12:22:55 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 /*
 	DESCRIPTION:
@@ -28,7 +27,7 @@
 void	push(t_stack *stack, t_frame *frame)
 {
 	t_frame		*tail;
-	
+
 	if (!stack || !frame)
 		return ;
 	if (stack->size > 0)
@@ -60,12 +59,10 @@ void	push(t_stack *stack, t_frame *frame)
 */
 t_frame	*pop(t_stack *stack)
 {
-	//int			popped_value;
 	t_frame		*popped_frame;
-	
+
 	if (!stack->head)
 		return (0);
-	//popped_value = stack->head->value;
 	popped_frame = stack->head;
 	if (stack->size != 1)
 	{
@@ -73,31 +70,54 @@ t_frame	*pop(t_stack *stack)
 		stack->head->prev = popped_frame->prev;
 		popped_frame->prev->next = stack->head;
 	}
-	//free(popped_frame);
 	(stack->size)--;
 	return (popped_frame);
 }
 
-void	clear_stack(t_stack *stack)
+/*
+-swaps the first 2 elements of the specified stack
+-swap only happens if stack contains at least 2 frames
+*/
+void	swap(t_stack *stack)
 {
-	while (stack->size)
-		pop(stack);
+	t_frame		*first_elem;
+	t_frame		*second_elem;
+
+	if (stack->size > 1)
+	{
+		first_elem = pop(stack);
+		second_elem = pop(stack);
+		push(stack, first_elem);
+		push(stack, second_elem);
+	}
 }
 
-/* int	main(void)
+/*
+-pops first element of stack y and pushes it to stack x
+-only executed when y has at least one element
+*/
+void	push_y_to_x(t_stack *x, t_stack *y)
 {
-	t_stack	*a;
-	a = malloc(sizeof(t_stack));
-	a->size = 0;
-	a->head = NULL;
-	// t_frame	*temp;
+	t_frame	*frame;
 
+	if (y->size > 0)
+	{
+		frame = pop(y);
+		push(x, frame);
+	}
+}
 
-	push(a, 5);
-	push(a, 1);
-	push(a, 3);
-	print_stack(a);
-	// temp = pop(a);
-	// printf("temp.value: %i\n", temp->value);
-	// print_stack(a);
-} */
+/*
+-normal (reverse == 0): first element becomes last
+-reverse (reverse == 1): last elemebt becomes first
+*/
+void	rotate(t_stack *stack, int reverse)
+{
+	if (stack->size)
+	{
+		if (reverse)
+			stack->head = stack->head->prev;
+		else
+			stack->head = stack->head->next;
+	}
+}

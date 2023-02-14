@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:23:05 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/01/28 12:39:35 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/14 12:23:22 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <limits.h>
 # include <stdarg.h>
+# include <limits.h>
 # include "parsers/parsers.h"
 
 typedef struct s_list
@@ -24,6 +25,10 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }t_list;
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
 
 int		ft_isdigit(int c);
 int		ft_isalpha(int c);
@@ -71,5 +76,11 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_printf(const char *format, ...);
 int		ft_strcmp(char *s1, char *s2);
+char	*get_next_line(int fd);
+void	*gnl_memset(void *s, int c, size_t n);
+size_t	gnl_strlen(const char *s);
+char	*gnl_strchr(const char *s, int c);
+char	*gnl_strjoin(char const *s1, char const *s2);
+char	*gnl_substr(char const *s, unsigned int start, size_t len);
 
 #endif

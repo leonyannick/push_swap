@@ -1,42 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   radix_sort.c                                       :+:      :+:    :+:   */
+/*   insertion_sort.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/27 11:56:09 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/08 15:22:40 by lbaumann         ###   ########.fr       */
+/*   Created: 2023/01/25 12:14:38 by lbaumann          #+#    #+#             */
+/*   Updated: 2023/02/13 09:47:37 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-#include <stdio.h>
+#include "../includes/push_swap.h"
 
-void	radix_sort(t_stack *a, t_stack *b)
+void	insertion_sort(t_stack *a, int i, int j, int cnt)
 {
-	int	bin_digits;
-	int	i;
-	int	n;
-
-	bin_digits = 1;
-	i = 0;
-	while ((a->size - 1) >> bin_digits)
-		bin_digits++;
-	while(i < bin_digits)
+	i = 1;
+	while (i < a->size)
 	{
-		n = a->size;
-		while (n)
+		j = i;
+		cnt = 1;
+		while (j > 0 && (a->head->value) > (a->head->next->value))
 		{
-			if ((a->head->index_s >> i) & 1)
-				ra(a);
-			else
-				pb(a, b);
-			n--;
+			swap(a);
+			if (j > 1)
+			{
+				rotate(a, REVERSE);
+				cnt++;
+			}
+			j--;
 		}
-		while (b->size)
-			pa(a, b);
+		while (cnt)
+		{
+			rotate(a, NORMAL);
+			cnt--;
+		}
 		i++;
 	}
+	rotate(a, NORMAL);
 }
-
