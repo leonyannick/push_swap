@@ -6,12 +6,11 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:38:28 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/14 14:27:03 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/15 09:44:42 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-#include <stdio.h>
 
 int	instrcmp(char *instr, t_stack *a, t_stack *b)
 {
