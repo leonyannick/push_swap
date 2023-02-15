@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 09:45:47 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/14 18:01:16 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/15 09:38:06 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	main(int argc, char **argv)
 {
 	t_stack		*a;
 	t_stack		*b;
-	int			chunksz;
 
 	if (argc == 1)
 		return (0);
@@ -30,10 +29,14 @@ int	main(int argc, char **argv)
 		free_mem(a, b);
 		return (0);
 	}
-	assign_index(a, a->size);
-	chunksz = a->size / 3;
-	create_chunks(a, b, chunksz);
-	sort_3(a);
-	cost_sort(a, b);
+	if (a->size == 3)
+		sort_3(a);
+	else
+	{
+		assign_index(a, a->size);
+		two_chunks(a, b);
+		sort_3(a);
+		cost_sort(a, b);
+	}
 	free_mem(a, b);
 }

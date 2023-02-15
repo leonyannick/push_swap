@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 09:56:45 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/14 17:59:58 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/15 09:42:39 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void		radix_sort(t_stack *a, t_stack *b);
 void		create_chunks(t_stack *a, t_stack *b, int chunksz);
 int			idx_bestmove(t_stack *a, int limit);
 void		n_rotate(t_stack *stack, int n, int reverse);
+void		two_chunks(t_stack *a, t_stack *b);
 
 //cost sort
 void		determine_pos(t_stack *b);
@@ -93,7 +94,7 @@ void		clear_stack(t_stack *stack);
 void		sort_3(t_stack *a);
 int			is_sorted(t_stack *a);
 //void		print_stack(t_stack *stack);
-void		print_stacks(t_stack *a, t_stack *b, int asize, int bsize);
+//void		print_stacks(t_stack *a, t_stack *b, int asize, int bsize);
 
 //input
 int			initialize_stacks(t_stack **a, t_stack **b);

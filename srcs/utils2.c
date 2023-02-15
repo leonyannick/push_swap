@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 17:34:47 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/14 18:00:27 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/15 09:41:21 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,7 @@ int	is_sorted(t_stack *a)
 	return (1);
 }
 
-#include <stdio.h>
-
+/* #include <stdio.h>
 void	print_stacks(t_stack *a, t_stack *b, int asize, int bsize)
 {
 	t_frame	*temp_a;
@@ -115,7 +114,7 @@ void	print_stacks(t_stack *a, t_stack *b, int asize, int bsize)
 		
 	}
 	printf("\n");
-}
+} */
 
 /* void	print_stack(t_stack *stack)
 {

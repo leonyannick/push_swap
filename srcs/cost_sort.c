@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 09:59:02 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/14 18:33:03 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/15 09:22:12 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ void	cost_sort(t_stack *a, t_stack *b)
 		determine_pos(a);
 		determine_dest(a, b, a->size, b->size);
 		calculate_costs(b, b->size);
-		print_stacks(a, b, a->size, b->size);
 		min = get_frame_mincost(b, b->size);
 		while (min->pos || min->dest)
 			min = determine_rotation(min, a, b);

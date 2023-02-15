@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 17:19:30 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/02/13 12:42:33 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/02/15 09:35:15 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,23 @@ void	create_chunks(t_stack *a, t_stack *b, int chunksz)
 			n_rotate(a, a->size - idx, REVERSE);
 		pb(a, b);
 		i++;
+	}
+}
+
+void	two_chunks(t_stack *a, t_stack *b)
+{
+	int		asize;
+
+	asize = a->size;
+	while (b->size < (asize / 2))
+	{
+		if (a->head->index_s < (asize / 2))
+			pb(a, b);
+		else
+			ra(a);
+	}
+	while (a->size > 3)
+	{
+		pb(a, b);
 	}
 }
